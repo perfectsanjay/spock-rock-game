@@ -1,3 +1,5 @@
+import { startConfetti, stopConfetti, removeConfetti } from "./confetti.js";
+
 
 const playerScoreEl = document.getElementById('playerScore')
 const playerChoiceEl = document.getElementById('playerChoice');
@@ -38,6 +40,8 @@ function resetSelected(){
   allGameIcons.forEach((icon) => {
     icon.classList.remove('selected')
   })
+  stopConfetti()
+  removeConfetti()
 }
 // reset score
 function resetAll(){
@@ -51,6 +55,7 @@ function resetAll(){
   resetSelected();
 
 }
+window.resetAll = resetAll
 
 // Random computer choice
 function computerRandomChoice(){
@@ -112,6 +117,7 @@ function updateScore(playerChoice){
   }else{
     const choice = choices[playerChoice];
     if (choice.defeats.indexOf(computerChoice) > -1){
+      startConfetti()
       resultText.textContent = "You Won!";
       playerScoreNumber++;
       playerScoreEl.textContent = playerScoreNumber
@@ -165,4 +171,6 @@ function select(playerChoice){
   }
 
 }
+window.select = select;
+
 resetAll()
